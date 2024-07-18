@@ -18,6 +18,23 @@ export class UserController {
 
     return res
       .status(201)
-      .json({ status: 200, user, msg: "User Created Successfull.y" });
+      .json({ status: 200, user, msg: "User Created Successfully." });
+  }
+
+
+  @Post("login")
+  async login(
+    @Body("email") email: string,
+    @Body("password") password: string,
+    @Res() res: Response
+  ): Promise<any> {
+    const user = await this.userService.loginUser(email, password);
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+
+    return res.status(200).cookie("accessToken", user.accessToken, options).cookie("refreshToken", user.refreshToken, options).json({ status: 200, user, msg:"User Created Successfully." });
   }
 }
