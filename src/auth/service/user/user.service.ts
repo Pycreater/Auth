@@ -67,35 +67,35 @@ export class UserService {
     }
   }
 
+  async loginUser(email: string, password: string): Promise<any> {
+    // check if all fields are there and valid || error
+    // check if a user is new or not || else send register first message
+    //  get tokens and validate
+    // login send cookie
 
-  async loginUser(email: string, password : string): Promise<any> {
-  // check if all fields are there and valid || error
-  // check if a user is new or not || else send register first message
-  //  get tokens and validate
-  // login send cookie
-
-    if(!email && !password) {
-        throw new BadRequestException("username or password is required.");
+    if (!email && !password) {
+      throw new BadRequestException("username or password is required.");
     }
 
-    const user = await User.findOne({email});
-    
-    if(!user) {
-        throw new BadRequestException("User does not exist.");
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new BadRequestException("User does not exist.");
     }
 
     const isPasswordValid = await user.isPasswordCorrect(password);
 
     if (!isPasswordValid) {
-        throw new BadRequestException("Invalid user credentials.");
-      }
+      throw new BadRequestException("Invalid user credentials.");
+    }
 
-      const {accessToken, refreshToken} = await this.generateAccessAndRefreshTokens(user._id as string);
+    const { accessToken, refreshToken } =
+      await this.generateAccessAndRefreshTokens(user._id as string);
 
-      const loggedInUser = await User.findById(user._id).select(
-        "-password -refreshToken"
-      );
+    const loggedInUser = await User.findById(user._id).select(
+      "-password -refreshToken"
+    );
 
-      return {loggedInUser, accessToken, refreshToken};
+    return { loggedInUser, accessToken, refreshToken };
   }
 }

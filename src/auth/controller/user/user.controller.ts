@@ -21,7 +21,6 @@ export class UserController {
       .json({ status: 200, user, msg: "User Created Successfully." });
   }
 
-
   @Post("login")
   async login(
     @Body("email") email: string,
@@ -35,6 +34,10 @@ export class UserController {
       secure: true,
     };
 
-    return res.status(200).cookie("accessToken", user.accessToken, options).cookie("refreshToken", user.refreshToken, options).json({ status: 200, user, msg:"User Created Successfully." });
+    return res
+      .status(200)
+      .cookie("accessToken", user.accessToken, options)
+      .cookie("refreshToken", user.refreshToken, options)
+      .json({ status: 200, user, msg: "User Created Successfully." });
   }
 }
