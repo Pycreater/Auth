@@ -1,14 +1,10 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
 
 interface IUser extends Document {
   username: string;
   email: string;
-  fullName: string;
-  avatar: string;
-  coverImage?: string;
-  watchHistory: mongoose.Types.ObjectId[];
   password: string;
   refreshToken?: string;
   isPasswordCorrect(password: string): Promise<boolean>;
@@ -66,7 +62,6 @@ userSchema.methods.generateAccessToken = function (): string {
       _id: this._id,
       email: this.email,
       username: this.username,
-      fullName: this.fullName,
     },
     process.env.ACCESS_TOKEN_SECRET as string,
     {
