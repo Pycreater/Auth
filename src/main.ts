@@ -1,8 +1,31 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import helmet from "helmet";
+import * as dotenv from "dotenv";
+import * as cors from "cors";
+import * as cookieParser from "cookie-parser";
+import connectDB from "./db";
+
+dotenv.config({
+  path: "./.env",
+});
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  app.use(helmet());
+  app.use(cors());
+  app.use(cookieParser());
+
+  try {
+    await connectDB();
+    const port = process.env.PORT || 8000;
+    await app.listen(port, () => {
+      console.log(`✌ Server is running on port: ${port}`);
+    });
+  } catch (error) {
+    console.error("MONGODB Connection Failed !!", error);
+    process.exit(1);
+  }
 }
+
 bootstrap();
