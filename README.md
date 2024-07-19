@@ -1,73 +1,97 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Auth
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This repository contains an authentication system built using NestJS. It supports user registration, login, and token-based authentication with JWT.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- User Registration
+- User Login
+- JWT Authentication
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Technologies Used
 
-## Installation
+- TypeScript
+- NestJS
+- JWT
+- MongoDB
 
-```bash
-$ npm install
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+- MongoDB
+
+### Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/Pycreater/Auth.git
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd Auth
+    ```
+3. Install the dependencies:
+    ```sh
+    npm install
+    ```
+4. Create a `.env` file in the root directory and add your MongoDB and JWT configurations:
+    ```env
+    PORT=8000
+    MONGODB_URI=
+    CORS_ORIGIN=
+    ACCESS_TOKEN_SECRET=
+    ACCESS_TOKEN_EXPIRY=
+    REFRESH_TOKEN_SECRET=
+    REFRESH_TOKEN_EXPIRY=
+    ```
+
+### Running the Application
+
+Run the following command to start the application:
+```sh
+npm run start
 ```
 
-## Running the app
+The application will be accessible at `http://localhost:8000`.
 
-```bash
-# development
-$ npm run start
+## API Endpoints
 
-# watch mode
-$ npm run start:dev
+### Authentication
 
-# production mode
-$ npm run start:prod
-```
+- **Register**: `POST /api/v1/user/register`
+    ```json
+    {
+        "username": "your_username",
+        "password": "your_password",
+        "email": "your_email"
+    }
+    ```
 
-## Test
+- **Login**: `POST /api/v1/user/login`
+    ```json
+    {
+        "email": "your_email",
+        "password": "your_password"
+    }
+    ```
 
-```bash
-# unit tests
-$ npm run test
+### Secured Endpoints
 
-# e2e tests
-$ npm run test:e2e
+These endpoints require a valid JWT token to access.
 
-# test coverage
-$ npm run test:cov
-```
+- **User Logout**: `POST /api/v1/user/logout`
+    - Headers: `Authorization: Bearer <your_jwt_token>`
 
-## Support
+- **Change-password**: `POST /api/v1/user/forgot-password`
+    - Headers: `Authorization: Bearer <your_jwt_token>`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Contributing
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Contributions are welcome! Please open an issue or submit a pull request for any changes.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License. See the [MIT](MIT) file for details.
