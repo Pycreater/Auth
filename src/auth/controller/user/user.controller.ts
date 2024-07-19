@@ -54,11 +54,28 @@ export class UserController {
   @Post("logout")
   async logout(@Req() req: Request, @Res() res: Response): Promise<any> {
     const user = (req as any).user;
-    const result = await this.userService.logoutUser(user._id);
+    await this.userService.logoutUser(user._id);
 
     return res
       .clearCookie("accessToken", { httpOnly: true, secure: true })
       .clearCookie("refreshToken", { httpOnly: true, secure: true })
       .json({ message: "User logged out successfully" });
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post("forgot-password")
+  async changeCurrentPassword(
+    @Body("oldPassword") oldPassword: string,
+    @Body("newPassword") newPassword: string,
+    @Req() req: Request,
+    @Res() res: Response
+  ): Promise<any> {
+    const existingUser = (req as any).user;
+    const user = await this.userService.resetPassword(
+      newPassword,
+      oldPassword,
+      existingUser
+    );
+    return res.json(user);
   }
 }

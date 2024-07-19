@@ -121,4 +121,20 @@ export class UserService {
 
     return {};
   }
+
+  async resetPassword(newPassword: string, oldPassword: string, user: any) {
+    const { _id } = user;
+
+    const finduser = await User.findById(_id);
+    const isPasswordCorrect = await finduser.isPasswordCorrect(oldPassword);
+
+    if (!isPasswordCorrect) {
+      throw new BadRequestException("Invalid old password.");
+    }
+
+    finduser.password = newPassword;
+    await finduser.save({ validateBeforeSave: false });
+
+    return { statusCode: 200, msg: "Password changed Successfully." };
+  }
 }
