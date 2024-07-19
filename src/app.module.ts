@@ -10,9 +10,8 @@ import { AuthMiddleware } from "./auth/user/middleware/AuthMiddleware.middleware
   controllers: [UserController],
   providers: [UserService],
 })
-export class AppModule implements NestModule{
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware)
-    .forRoutes("api/v1/user/logout"); // Apply middleware to the logout route
+    consumer.apply(AuthMiddleware).forRoutes("api/v1/user/logout"); // Apply middleware to the logout route
   }
 }

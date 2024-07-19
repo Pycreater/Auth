@@ -1,7 +1,14 @@
-import { BadGatewayException, BadRequestException, Injectable, Next, Req, UnauthorizedException } from "@nestjs/common";
+import {
+  BadGatewayException,
+  BadRequestException,
+  Injectable,
+  Next,
+  Req,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { NextFunction, Request } from "express";
 import User from "src/models/user.model";
-import * as jwt from "jsonwebtoken"
+import * as jwt from "jsonwebtoken";
 
 @Injectable()
 export class UserService {
@@ -101,8 +108,6 @@ export class UserService {
     return { loggedInUser, accessToken, refreshToken };
   }
 
-
-
   async logoutUser(_id: string) {
     const user = await User.findByIdAndUpdate(
       _id,
@@ -111,10 +116,9 @@ export class UserService {
           refreshToken: 1,
         },
       },
-      {new: true}
-    )
+      { new: true }
+    );
 
     return {};
   }
-
 }
