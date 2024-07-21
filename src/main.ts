@@ -14,7 +14,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
   app.enableCors({
-    origin: "https://auth-frontend-9u68fot9g-pratiks-projects-5c2fb984.vercel.app" || "http://localhost:5173" || "*",
+    origin: "https://auth-frontend-topaz.vercel.app" || "http://localhost:5173" || "*",
     credentials: true
   })
   app.use(cookieParser());
