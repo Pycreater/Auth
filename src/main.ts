@@ -14,7 +14,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
   app.enableCors({
-    origin: "http://localhost:5173" || "*",
+    origin: "https://auth-9mr1.onrender.com" || "http://localhost:5173" || "*",
     credentials: true
   })
   app.use(cookieParser());
