@@ -23,6 +23,10 @@ export class UserController {
     @Body("password") password: string,
     @Res() res: Response
   ): Promise<any> {
+    console.log(email);
+    console.log(password);
+    console.log(username);
+    
     const user = await this.userService.registerUser(email, username, password);
 
     return res
@@ -36,8 +40,11 @@ export class UserController {
     @Body("password") password: string,
     @Res() res: Response
   ): Promise<any> {
+    console.log(email,password);
+    
     const user = await this.userService.loginUser(email, password);
-
+    console.log(user);
+    
     const options = {
       httpOnly: true,
       secure: true,
